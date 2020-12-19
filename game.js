@@ -40,29 +40,31 @@ function nextSequence() {
 $(".btn").on("click", clickHandler);
 
 function clickHandler() {
-    clickCount++;
+    if (isGameOn) {
+        clickCount++;
 
-    var userChosenButton = this.id;
+        var userChosenButton = this.id;
 
-    userClickedPattern.push(userChosenButton);
+        userClickedPattern.push(userChosenButton);
 
-    if (userChosenButton === gamePattern[clickCount - 1]) {
-        // ok
-        animateAndPlay(userChosenButton);
+        if (userChosenButton === gamePattern[clickCount - 1]) {
+            // ok
+            animateAndPlay(userChosenButton);
 
-        if (clickCount == gamePattern.length) {
-            setTimeout(nextSequence, 1000);
+            if (clickCount == gamePattern.length) {
+                setTimeout(nextSequence, 1000);
+            }
+        } else {
+            // fail
+
+            wrongSound.play();
+            $("body").addClass("game-over");
+            setTimeout(() => {
+                $("body").removeClass("game-over");
+            }, 200);
+            updateTitle("Game Over, Press Any Key to Restart");
+            startOver();
         }
-    } else {
-        // fail
-
-        wrongSound.play();
-        $("body").addClass("game-over");
-        setTimeout(() => {
-            $("body").removeClass("game-over");
-        }, 200);
-        updateTitle("Game Over, Press Any Key to Restart");
-        startOver();
     }
 }
 

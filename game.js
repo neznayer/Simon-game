@@ -1,4 +1,3 @@
-debugger;
 var buttonColors = ["red", "blue", "green", "yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
